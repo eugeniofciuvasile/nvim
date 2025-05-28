@@ -33,7 +33,6 @@ return {
                 "cssls",
                 "angularls",
                 "html",
-                "htmlangular",
                 "gradle_ls",
                 "lua_ls",
                 "jdtls",
@@ -95,7 +94,7 @@ return {
         })
         -- Angular LSP settings
         require("lspconfig").angularls.setup({
-            filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" },
+            filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
         })
         -- Lua LSP settings
         lspconfig.lua_ls.setup({
