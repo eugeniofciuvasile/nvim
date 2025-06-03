@@ -5,9 +5,7 @@ return {
   event = "BufReadPost",
   opts = {
     suggestion = {
-      keymap = {
-        accept = false, -- handled by completion engine
-      },
+      enabled = false,
     },
   },
   specs = {

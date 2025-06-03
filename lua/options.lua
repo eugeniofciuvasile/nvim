@@ -29,7 +29,7 @@ keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>zz", { desc = "Go to
 keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>zz", { desc = "Go to declaration" })
 keymap.set("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>zz", { desc = "Go to implementation" })
 keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Go to references" })
-keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
+keymap.set("n", "gs", function() require("lsp_signature").toggle_float_win() end, { desc = "Signature help" })
 keymap.set("n", "<leader>rr", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename symbols" })
 keymap.set("n", "gF", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", { desc = "Format" })
 keymap.set("v", "gF", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", { desc = "Format" })
