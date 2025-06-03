@@ -22,6 +22,7 @@ vim.o.inccommand = "split"
 
 local keymap = vim.keymap
 
+keymap.set("n", "<Leader>h", "<cmd>Alpha<CR>", { desc = "Open Alpha Dashboard" })
 -- LSP
 keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover description" })
 keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>zz", { desc = "Go to definition" })
@@ -39,40 +40,40 @@ keymap.set("n", "<Leader>tr", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", { de
 
 -- Filetype-specific keymaps (these can be done in the ftplugin directory instead if you prefer)
 keymap.set("n", "<Leader>jo", function()
-    if vim.bo.filetype == "java" then require("jdtls").organize_imports() end
+  if vim.bo.filetype == "java" then require("jdtls").organize_imports() end
 end, { desc = "Organize imports" })
 
 keymap.set("n", "<Leader>ju", function()
-    if vim.bo.filetype == "java" then require("jdtls").update_projects_config() end
+  if vim.bo.filetype == "java" then require("jdtls").update_projects_config() end
 end, { desc = "Update projects config" })
 
 keymap.set("n", "<Leader>jp", function()
-    if vim.bo.filetype == "java" then
-        require("jdtls").javap() -- Use the appropriate method for renaming
-    end
+  if vim.bo.filetype == "java" then
+    require("jdtls").javap() -- Use the appropriate method for renaming
+  end
 end, { desc = "Refactor/Rename package in Java project" })
 
 keymap.set("n", "<Leader>tc", function()
-    if vim.bo.filetype == "java" then require("jdtls").test_class() end
+  if vim.bo.filetype == "java" then require("jdtls").test_class() end
 end, { desc = "Test class" })
 
 keymap.set("n", "<Leader>tm", function()
-    if vim.bo.filetype == "java" then require("jdtls").test_nearest_method() end
+  if vim.bo.filetype == "java" then require("jdtls").test_nearest_method() end
 end, { desc = "Test nearest method" })
 
 -- Debugging
 keymap.set("n", "<Leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc = "Toggle breakpoint" })
 keymap.set(
-    "n",
-    "<Leader>bc",
-    "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
-    { desc = "Set breakpoint" }
+  "n",
+  "<Leader>bc",
+  "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
+  { desc = "Set breakpoint" }
 )
 keymap.set(
-    "n",
-    "<Leader>bl",
-    "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>",
-    { desc = "Set breakpoint log" }
+  "n",
+  "<Leader>bl",
+  "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>",
+  { desc = "Set breakpoint log" }
 )
 keymap.set("n", "<Leader>br", "<cmd>lua require'dap'.clear_breakpoints()<cr>", { desc = "Clear breakpoints" })
 keymap.set("n", "<Leader>ba", "<cmd>Telescope dap list_breakpoints<cr>", { desc = "List breakpoints" })
@@ -81,23 +82,23 @@ keymap.set("n", "<Leader>dj", "<cmd>lua require'dap'.step_over()<cr>", { desc = 
 keymap.set("n", "<Leader>dk", "<cmd>lua require'dap'.step_into()<cr>", { desc = "Step into" })
 keymap.set("n", "<Leader>do", "<cmd>lua require'dap'.step_out()<cr>", { desc = "Step out" })
 keymap.set("n", "<Leader>dd", function()
-    require("dap").disconnect()
-    require("dapui").close()
+  require("dap").disconnect()
+  require("dapui").close()
 end, { desc = "Disconnect debug" })
 keymap.set("n", "<Leader>dt", function()
-    require("dap").terminate()
-    require("dapui").close()
+  require("dap").terminate()
+  require("dapui").close()
 end, { desc = "Close debug" })
 keymap.set("n", "<Leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")
 keymap.set("n", "<Leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
 keymap.set("n", "<Leader>di", function() require("dap.ui.widgets").hover() end)
 keymap.set("n", "<Leader>d?", function()
-    local widgets = require("dap.ui.widgets")
-    widgets.centered_float(widgets.scopes)
+  local widgets = require "dap.ui.widgets"
+  widgets.centered_float(widgets.scopes)
 end)
 keymap.set("n", "<Leader>df", "<cmd>Telescope dap frames<cr>")
 keymap.set("n", "<Leader>dh", "<cmd>Telescope dap commands<cr>")
-keymap.set("n", "<Leader>de", function() require("telescope.builtin").diagnostics({ default_text = ":E:" }) end)
+keymap.set("n", "<Leader>de", function() require("telescope.builtin").diagnostics { default_text = ":E:" } end)
 keymap.set("n", "<Leader>ut", vim.cmd.UndotreeToggle, { desc = "UndotreeToggle" })
 
 -- vim.keymap.set("x", "<Leader>re", function() require("refactoring").refactor("Extract Function") end)

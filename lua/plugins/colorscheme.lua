@@ -5,6 +5,9 @@ return {
     opts = {},
     config = function()
       require("rose-pine").setup {
+        palette = {},
+        highlight_groups = {},
+        before_highlight = function(groups, colors) return groups end,
         variant = "moon", -- auto, main, moon, or dawn
         dark_variant = "main", -- main, moon, or dawn
         dim_inactive_windows = false,

@@ -15,9 +15,10 @@ return {
           })
         end,
       },
+      ---@diagnostic disable-next-line: missing-fields
       config = {
         -- set jdtls server settings
-        jdtls = function()
+        jdtls = (function()
           -- use this function notation to build some variables
           local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
           local root_dir = require("jdtls.setup").find_root(root_markers)
@@ -25,12 +26,12 @@ return {
           -- calculate workspace dir
           local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
           local workspace_dir = vim.fn.stdpath "data" .. "/site/java/workspace-root/" .. project_name
-          os.execute("mkdir " .. workspace_dir)
+          os.execute("mkdir -p " .. workspace_dir)
 
           -- get the mason jdtls path
           local jdtls_files = vim.fn.expand "$MASON/share/jdtls"
 
-          -- return the server config
+          -- return the server config table
           return {
             cmd = {
               "java",
@@ -55,7 +56,7 @@ return {
             },
             root_dir = root_dir,
           }
-        end,
+        end)(),
       },
     },
   },
