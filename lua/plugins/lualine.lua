@@ -6,57 +6,78 @@ return {
     local lazy_status = require "lazy.status" -- to configure lazy pending updates count
 
     local colors = {
-      blue = "#65D1FF",
-      green = "#3EFFDC",
-      violet = "#FF61EF",
-      yellow = "#FFDA7B",
-      red = "#FF4A4A",
-      fg = "#c3ccdc",
-      bg = "#112638",
-      inactive_bg = "#2c3043",
+      color0 = "#65D1FF",
+      color1 = "#ff5874",
+      color2 = "#c3ccdc",
+      color3 = "#FFDA7B",
+      color6 = "#a1aab8",
+      color7 = "#828697",
+      color8 = "#ae81ff",
     }
 
     local my_lualine_theme = {
-      normal = {
-        a = { bg = colors.blue, fg = colors.bg, gui = "bold" },
-        b = { bg = colors.bg, fg = colors.fg },
-        c = { bg = colors.bg, fg = colors.fg },
-      },
-      insert = {
-        a = { bg = colors.green, fg = colors.bg, gui = "bold" },
-        b = { bg = colors.bg, fg = colors.fg },
-        c = { bg = colors.bg, fg = colors.fg },
-      },
-      visual = {
-        a = { bg = colors.violet, fg = colors.bg, gui = "bold" },
-        b = { bg = colors.bg, fg = colors.fg },
-        c = { bg = colors.bg, fg = colors.fg },
-      },
-      command = {
-        a = { bg = colors.yellow, fg = colors.bg, gui = "bold" },
-        b = { bg = colors.bg, fg = colors.fg },
-        c = { bg = colors.bg, fg = colors.fg },
-      },
       replace = {
-        a = { bg = colors.red, fg = colors.bg, gui = "bold" },
-        b = { bg = colors.bg, fg = colors.fg },
-        c = { bg = colors.bg, fg = colors.fg },
+        a = { fg = colors.color0, bg = "none", gui = "bold" },
+        b = { fg = colors.color2, bg = "none" },
       },
       inactive = {
-        a = { bg = colors.inactive_bg, fg = colors.semilightgray, gui = "bold" },
-        b = { bg = colors.inactive_bg, fg = colors.semilightgray },
-        c = { bg = colors.inactive_bg, fg = colors.semilightgray },
+        a = { fg = colors.color6, bg = "none", gui = "bold" },
+        b = { fg = colors.color6, bg = "none" },
+        c = { fg = colors.color6, bg = "none" },
+      },
+      normal = {
+        a = { fg = colors.color0, bg = "none", gui = "bold" },
+        b = { fg = colors.color2, bg = "none" },
+        c = { fg = colors.color2, bg = "none" },
+      },
+      visual = {
+        a = { fg = colors.color0, bg = "none", gui = "bold" },
+        b = { fg = colors.color2, bg = "none" },
+      },
+      insert = {
+        a = { fg = colors.color0, bg = "none", gui = "bold" },
+        b = { fg = colors.color2, bg = "none" },
       },
     }
+    local mode = {
+      "mode",
+      fmt = function(str)
+        -- return ' '
+        -- displays only the first character of the mode
+        return " " .. str
+      end,
+    }
 
-    -- configure lualine with modified theme
+    local diff = {
+      "diff",
+      colored = true,
+      symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+      -- cond = hide_in_width,
+    }
+
+    local filename = {
+      "filename",
+      file_status = true,
+      path = 0,
+    }
+
+    local branch = { "branch", icon = { "", color = { fg = "#A6D4DE" } }, "|" }
+
     lualine.setup {
+      icons_enabled = true,
       options = {
         theme = my_lualine_theme,
+        component_separators = { left = "|", right = "|" },
+        section_separators = { left = "|", right = "" },
       },
       sections = {
+        lualine_a = { mode },
+        lualine_b = { branch },
+        lualine_c = { diff, filename },
         lualine_x = {
           {
+            -- require("noice").api.statusline.mode.get,
+            -- cond = require("noice").api.statusline.mode.has,
             lazy_status.updates,
             cond = lazy_status.has_updates,
             color = { fg = "#ff9e64" },
