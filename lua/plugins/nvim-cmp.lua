@@ -51,7 +51,7 @@ return {
             if cmp.visible() then
               cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true }
             else
-              fallback() -- This will insert a new line as usual
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", true)
             end
           end, { "i", "s" }),
           ["<Tab>"] = cmp.mapping(function(fallback)
@@ -60,7 +60,7 @@ return {
             elseif luasnip.expand_or_locally_jumpable() then
               luasnip.expand_or_jump()
             else
-              fallback()
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", true)
             end
           end, { "i", "s" }),
           ["<S-Tab>"] = cmp.mapping(function(fallback)
